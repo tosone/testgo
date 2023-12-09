@@ -7,7 +7,7 @@ COPY . .
 
 ARG TARGETOS TARGETARCH
 
-RUN go mod download && GOOS=$TARGETOS GOARCH=$TARGETARCH go build -v && ls && cp testgo /tmp/
+RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go build -v && ls && cp testgo /tmp/
 
 FROM alpine:3.8
 
