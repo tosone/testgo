@@ -1,17 +1,5 @@
 package main
 
-// import (
-// 	"log"
-// 	"time"
-// )
-
-// func main() {
-// 	for {
-// 		log.Println("hello there")
-// 		<-time.After(time.Second * 5)
-// 	}
-// }
-
 import (
 	"fmt"
 	"log"
@@ -22,7 +10,7 @@ import (
 )
 
 func main() {
-	templ := `{{ .Title "Hello World" "" 0 }}
+	tmpl := `{{ .Title "Hello World" "" 0 }}
    GoVersion: {{ .GoVersion }}
    GOOS: {{ .GOOS }}
    GOARCH: {{ .GOARCH }}
@@ -30,7 +18,7 @@ func main() {
    GOPATH: {{ .GOPATH }}
    GOROOT: {{ .GOROOT }}
    Now: {{ .Now "Monday, 2 Jan 2006" }}`
-	banner.InitString(colorable.NewColorableStdout(), true, true, templ)
+	banner.InitString(colorable.NewColorableStdout(), true, true, tmpl)
 
 	fmt.Println()
 	fmt.Println()

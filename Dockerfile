@@ -1,15 +1,20 @@
-FROM cargo30.dev.caicloud.xyz/library/golang:1.10.1-alpine3.7 as build
+# syntax=docker/dockerfile:1
+FROM --platform=$BUILDPLATFORM golang:1.20-alpine as build
 
 WORKDIR /go/src/github.com/tosone/testgo/
 
 COPY . .
 
-RUN go build && ls && cp testgo /tmp/
+ARG TARGETOS TARGETARCH
 
-FROM cargo30.dev.caicloud.xyz/library/alpine:3.7
+RUN go mod download && GOOS=$TARGETOS GOARCH=$TARGETARCH go build -v && ls && cp testgo /tmp/
+
+FROM alpine:3.8
 
 WORKDIR /app
 
 COPY --from=build /tmp/testgo /app
 
 CMD /app/testgo
+
+# docker buildx build --platform linux/amd64,linux/arm64 -t tosone/testgo:latest --push .
