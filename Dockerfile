@@ -7,7 +7,7 @@ COPY . .
 
 ARG TARGETOS TARGETARCH
 
-RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go build -v && ls && cp testgo /tmp/
+RUN --mount=type=cache,target=/go/pkg/mod --mount=type=cache,target=/root/.cache/go-build GOOS=$TARGETOS GOARCH=$TARGETARCH go build -v && ls && cp testgo /tmp/
 
 FROM alpine:3.8
 
